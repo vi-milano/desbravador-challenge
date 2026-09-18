@@ -5,3 +5,6 @@ Esse documento servirá para justificar e explicar quando necessário as decisõ
 ## Sobre o setup
 Escolhi o Vite sobre outros bundlers justamente por atualmente ser o padrão da industria. Ele trata de questões de performance e tamanho muito melhor do que era tratado com outras ferramentas.
 
+## Sobre bibliotecas incluídas
+O desafio pede responsividade padrão bootstrap, então preferi usar o próprio bootstrap como a biblioteca de componentes do projeto resolvendo dois problemas: a padronização visual e a responsividade.
+
