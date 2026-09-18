@@ -6,5 +6,6 @@ Esse documento servirá para justificar e explicar quando necessário as decisõ
 Escolhi o Vite sobre outros bundlers justamente por atualmente ser o padrão da industria. Ele trata de questões de performance e tamanho muito melhor do que era tratado com outras ferramentas.
 
 ## Sobre bibliotecas incluídas
-O desafio pede responsividade padrão bootstrap, então preferi usar o próprio bootstrap como a biblioteca de componentes do projeto resolvendo dois problemas: a padronização visual e a responsividade.
+- O desafio pede responsividade padrão **Bootstrap**, então preferi usar o próprio **Bootstrap** como a biblioteca de componentes do projeto resolvendo dois problemas: a padronização visual e a responsividade.
+- Também foi incluida a lib do **Axios** pela mesma razão, porém ao invés de usa-lo sozinho será feito em conjunto com o **TanStack Query** pelas otimizações como caches, refetch e organização de estado.
 
