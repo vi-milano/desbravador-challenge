@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { EXTERNAL_SERVICES } from '../endpoints';
+import { EXTERNAL_SERVICES } from './endpoints';
 
 const BASE_TIMEOUT = 5000;
 
