@@ -1,18 +1,26 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { useCallback, useState } from 'react';
 import { Button, Col, Container, Form, InputGroup, Row } from 'react-bootstrap';
+import { Outlet } from 'react-router';
 import { useGetUsers } from '~/hooks/useGetUsers';
 
 export default function Search() {
-  const [username, setUsername] = useState<string>('');
   const [searchValue, setSearchValue] = useState<string>('');
-  const { data } = useGetUsers(username);
+  const { data, mutate, isSuccess } = useGetUsers();
+  const queryClient = useQueryClient();
+
   const handleSubmit = useCallback(
     (e: React.SubmitEvent<HTMLFormElement>) => {
       e.preventDefault();
-      setUsername(searchValue);
+      mutate(searchValue, {
+        onSuccess: (userData, username) => {
+          queryClient.setQueryData(['gitHubUser', username], userData);
+        },
+      });
     },
     [searchValue]
   );
+
   return (
     <Container className="d-flex flex-column justify-content-center mt-4">
       <Row className="justify-content-center align-items-center ">
@@ -44,18 +52,25 @@ export default function Search() {
           </Form>
         </Col>
       </Row>
+      {isSuccess && (
+        <Row>
+          <Col className="mb-2" xs={12} md={6} lg={4}>
+            <span className="fw-bold">Nome: </span>
+            <span> {data?.data.name}</span>
+          </Col>
+          <Col className="mb-2" xs={12} md={6} lg={4}>
+            <span className="fw-bold">Bio: </span>
+            <span> {data?.data.bio}</span>
+          </Col>
+          <Col className="mb-2" xs={12} md={6} lg={4}>
+            <span className="fw-bold">Total de repositórios: </span>
+            <span> {data?.data.public_repos}</span>
+          </Col>
+        </Row>
+      )}
       <Row>
-        <Col className="mb-2" xs={12} md={6} lg={4}>
-          <span className="fw-bold">Nome: </span>
-          <span> {data?.data.name}</span>
-        </Col>
-        <Col className="mb-2" xs={12} md={6} lg={4}>
-          <span className="fw-bold">Bio: </span>
-          <span> {data?.data.bio}</span>
-        </Col>
-        <Col className="mb-2" xs={12} md={6} lg={4}>
-          <span className="fw-bold">Total de repositórios: </span>
-          <span> {data?.data.public_repos}</span>
+        <Col>
+          <Outlet />
         </Col>
       </Row>
     </Container>
