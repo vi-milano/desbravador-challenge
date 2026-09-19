@@ -1,5 +1,5 @@
+import Search from '~/layouts/search';
 import type { Route } from './+types/home';
-import Search from '~/search';
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -12,5 +12,5 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  return <Search />;
+  return null;
 }
