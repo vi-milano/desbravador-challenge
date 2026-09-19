@@ -1,13 +1,16 @@
-import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
+import type { Route } from './+types/home';
+import Search from '~/search';
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: 'GitHub Username Search' },
+    {
+      name: 'description',
+      content: 'This is the route responsible for the username search',
+    },
   ];
 }
 
 export default function Home() {
-  return <Welcome />;
+  return <Search />;
 }
