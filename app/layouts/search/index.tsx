@@ -1,13 +1,14 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { useCallback, useState } from 'react';
 import { Button, Col, Container, Form, InputGroup, Row } from 'react-bootstrap';
-import { Outlet } from 'react-router';
+import { Outlet, useNavigate } from 'react-router';
 import { useGetUsers } from '~/hooks/useGetUsers';
 
 export default function Search() {
   const [searchValue, setSearchValue] = useState<string>('');
   const { data, mutate, isSuccess } = useGetUsers();
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const handleSubmit = useCallback(
     (e: React.SubmitEvent<HTMLFormElement>) => {
@@ -15,6 +16,7 @@ export default function Search() {
       mutate(searchValue, {
         onSuccess: (userData, username) => {
           queryClient.setQueryData(['gitHubUser', username], userData);
+          navigate(`user/${username}`);
         },
       });
     },
