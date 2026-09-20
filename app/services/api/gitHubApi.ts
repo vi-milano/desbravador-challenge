@@ -8,5 +8,6 @@ export const gitHubApi = axios.create({
   timeout: BASE_TIMEOUT,
   headers: {
     'Content-Type': 'application/json',
+    Authorization: import.meta.env.VITE_GITHUB_API_KEY,
   },
 });

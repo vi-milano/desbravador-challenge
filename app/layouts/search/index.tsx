@@ -13,10 +13,14 @@ export default function Search() {
   const handleSubmit = useCallback(
     (e: React.SubmitEvent<HTMLFormElement>) => {
       e.preventDefault();
+
       mutate(searchValue, {
         onSuccess: (userData, username) => {
           queryClient.setQueryData(['gitHubUser', username], userData);
           navigate(`user/${username}`);
+        },
+        onError: () => {
+          navigate('');
         },
       });
     },
