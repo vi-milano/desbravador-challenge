@@ -1,12 +1,21 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { useCallback, useState } from 'react';
-import { Button, Col, Container, Form, InputGroup, Row } from 'react-bootstrap';
+import {
+  Button,
+  Col,
+  Container,
+  Form,
+  InputGroup,
+  Row,
+  Image,
+} from 'react-bootstrap';
 import { Outlet, useNavigate } from 'react-router';
+import { InfoText } from '~/components/InfoText';
 import { useGetUsers } from '~/hooks/useGetUsers';
 
 export default function Search() {
   const [searchValue, setSearchValue] = useState<string>('');
-  const { data, mutate, isSuccess } = useGetUsers();
+  const { data, mutate, isSuccess, isPending } = useGetUsers();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
@@ -28,17 +37,17 @@ export default function Search() {
   );
 
   return (
-    <Container className=" d-flex flex-column justify-content-center mt-4">
-      <Row className="justify-content-center align-items-center ">
-        <Col>
+    <Container className="mt-4">
+      <Row className="justify-content-center mb-3">
+        <Col xs={12} md={8}>
           <h1 className="text-center">Busca Github</h1>
           <p className="text-center">
             Consulte qualquer usuário do GitHub e explore os repositorios deles
           </p>
         </Col>
       </Row>
-      <Row className="justify-content-center align-items-center">
-        <Col>
+      <Row className="justify-content-center mb-3">
+        <Col xs={12} md={8}>
           <Form onSubmit={handleSubmit}>
             <InputGroup className="mb-3">
               <Form.Control
@@ -55,18 +64,42 @@ export default function Search() {
         </Col>
       </Row>
       {isSuccess && (
-        <Row>
-          <Col className="mb-2" xs={12} md={6} lg={4}>
-            <span className="fw-bold">Nome: </span>
-            <span> {data?.data.name}</span>
-          </Col>
-          <Col className="mb-2" xs={12} md={6} lg={4}>
-            <span className="fw-bold">Bio: </span>
-            <span> {data?.data.bio}</span>
-          </Col>
-          <Col className="mb-2" xs={12} md={6} lg={4}>
-            <span className="fw-bold">Total de repositórios: </span>
-            <span> {data?.data.public_repos}</span>
+        <Row className="justify-content-center mb-3">
+          <Col xs={12} md={8}>
+            <Row className="align-items-center">
+              <Col xs="auto" className="mb-2">
+                <Image
+                  src={data?.data.avatar_url}
+                  roundedCircle
+                  width={96}
+                  height={96}
+                  className="border border-2 border-dark-subtle object-fit-cover"
+                />
+              </Col>
+
+              <Col className="mb-2">
+                <InfoText
+                  text={data?.data.name ?? 'Nenhum nome disponível'}
+                  isLoading={isPending}
+                  title="Nome"
+                  length={20}
+                />
+
+                <InfoText
+                  text={data?.data.bio ?? 'Nenhuma bio disponível'}
+                  isLoading={isPending}
+                  title="Bio"
+                  length={20}
+                />
+
+                <InfoText
+                  text={data?.data.public_repos?.toString()}
+                  isLoading={isPending}
+                  title="Total de repositórios"
+                  length={3}
+                />
+              </Col>
+            </Row>
           </Col>
         </Row>
       )}

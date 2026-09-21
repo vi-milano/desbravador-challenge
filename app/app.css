@@ -5,3 +5,8 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.form-control:focus {
+  border-color: var(--bs-light);
+  box-shadow: 0 0 0 0.25rem rgba(var(--bs-light-rgb), 0.25);
+}

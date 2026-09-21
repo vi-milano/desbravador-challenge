@@ -12,8 +12,8 @@ export function InfoText({
   length?: number;
 }) {
   return (
-    <div>
-      <span>{title}: </span>
+    <div className="d-flex align-items-baseline gap-2 mb-1">
+      <span className="fw-bold">{title}:</span>
       <TextSkeleton
         text={text}
         isLoading={isLoading}
