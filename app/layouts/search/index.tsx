@@ -28,7 +28,7 @@ export default function Search() {
   );
 
   return (
-    <Container className="d-flex flex-column justify-content-center mt-4">
+    <Container className=" d-flex flex-column justify-content-center mt-4">
       <Row className="justify-content-center align-items-center ">
         <Col>
           <h1 className="text-center">Busca Github</h1>
@@ -47,11 +47,7 @@ export default function Search() {
                 placeholder="Usuário do GitHub"
                 aria-label="Buscar usuário do GitHub"
               />
-              <Button
-                type="submit"
-                variant="outline-secondary"
-                id="search-button"
-              >
+              <Button type="submit" variant="light" id="search-button">
                 Buscar
               </Button>
             </InputGroup>
