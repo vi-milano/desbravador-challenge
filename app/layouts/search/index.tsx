@@ -10,7 +10,7 @@ import {
   Row,
   Image,
 } from 'react-bootstrap';
-import { useNavigate, useOutlet } from 'react-router';
+import { useLocation, useNavigate, useOutlet } from 'react-router';
 import { InfoText } from '~/components/InfoText';
 import { useGetUsers } from '~/hooks/useGetUsers';
 
@@ -33,6 +33,7 @@ export default function Search() {
   const { data, mutate, isSuccess, isPending } = useGetUsers();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const location = useLocation();
   const currentOutlet = useOutlet();
 
   const handleSubmit = useCallback(
@@ -120,7 +121,7 @@ export default function Search() {
                         />
                       </Col>
 
-                      <Col sm={12} lg={6}>
+                      <Col sm={12}>
                         <InfoText
                           text={data?.data.bio ?? '-'}
                           isLoading={isPending}
@@ -129,7 +130,7 @@ export default function Search() {
                         />
                       </Col>
 
-                      <Col sm={12} lg={3}>
+                      <Col sm={12} lg={6}>
                         <InfoText
                           text={data?.data.followers?.toString()}
                           isLoading={isPending}
@@ -138,7 +139,7 @@ export default function Search() {
                         />
                       </Col>
 
-                      <Col sm={12} lg={3}>
+                      <Col sm={12} lg={6}>
                         <InfoText
                           text={data?.data.following?.toString()}
                           isLoading={isPending}

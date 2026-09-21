@@ -12,39 +12,57 @@ export default function RepoDetail() {
   const navigate = useNavigate();
   return (
     <Container>
-      <Row>
-        <Col>
-          <Button variant="primary" onClick={() => navigate(-1)}>
-            Voltar
-          </Button>
+      <Row className="justify-content-center mb-3">
+        <Col xs={12} md={8} className="mb-2 p-0">
+          <Row>
+            <Col xs={6}>
+              <Button variant="outline-secondary" onClick={() => navigate(-1)}>
+                Voltar
+              </Button>
+            </Col>
+            <Col className="d-flex justify-content-end" xs={6}>
+              <Button
+                variant="secondary"
+                onClick={() => window.open(data?.data.html_url, '_blank')}
+              >
+                Acessar no GitHub
+              </Button>
+            </Col>
+          </Row>
         </Col>
       </Row>
-      <Row>
-        <Col>
-          <InfoText
-            isLoading={isLoading}
-            text={data?.data.name ?? 'Repositório não encontrado'}
-            title="Nome"
-          />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <InfoText
-            text={data?.data.description ?? 'Nenhuma descrição disponível'}
-            isLoading={isLoading}
-            title="Descrição"
-          />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <InfoText
-            text={data?.data.stargazers_count?.toString()}
-            isLoading={isLoading}
-            title="Estrelas"
-            length={3}
-          />
+      <Row className="justify-content-center mb-3">
+        <Col xs={12} md={8} className="mb-2 p-0">
+          <Row>
+            <Col sm={12}>
+              <InfoText
+                isLoading={isLoading}
+                text={data?.data.name ?? 'Repositório não encontrado'}
+                title="Nome"
+              />
+            </Col>
+            <Col sm={12}>
+              <InfoText
+                isLoading={isLoading}
+                text={data?.data.description ?? 'Sem descrição'}
+                title="Descrição"
+              />
+            </Col>
+            <Col sm={12} lg={6}>
+              <InfoText
+                isLoading={isLoading}
+                text={data?.data.language ?? 'Linguagem não especificada'}
+                title="Linguagem"
+              />
+            </Col>
+            <Col sm={12} lg={6}>
+              <InfoText
+                isLoading={isLoading}
+                text={data?.data.stargazers_count?.toString() ?? '0'}
+                title="Estrelas"
+              />
+            </Col>
+          </Row>
         </Col>
       </Row>
     </Container>
