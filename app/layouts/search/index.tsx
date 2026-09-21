@@ -91,7 +91,7 @@ export default function Search() {
             <Row className="justify-content-center mb-3">
               <Col xs={12} md={8}>
                 <Row className="align-items-center">
-                  <Col xs="auto" className="mb-2">
+                  <Col xs={12} md="auto" className="mb-2">
                     <Image
                       src={data?.data.avatar_url}
                       roundedCircle
@@ -102,26 +102,51 @@ export default function Search() {
                   </Col>
 
                   <Col className="mb-2">
-                    <InfoText
-                      text={data?.data.name ?? 'Nenhum nome disponível'}
-                      isLoading={isPending}
-                      title="Nome"
-                      length={20}
-                    />
+                    <Row>
+                      <Col sm={12} lg={6}>
+                        <InfoText
+                          text={data?.data.name ?? '-'}
+                          isLoading={isPending}
+                          title="Nome"
+                          length={20}
+                        />
+                      </Col>
+                      <Col sm={12} lg={6}>
+                        <InfoText
+                          text={data?.data.email ?? '-'}
+                          isLoading={isPending}
+                          title="E-mail"
+                          length={20}
+                        />
+                      </Col>
 
-                    <InfoText
-                      text={data?.data.bio ?? 'Nenhuma bio disponível'}
-                      isLoading={isPending}
-                      title="Bio"
-                      length={20}
-                    />
+                      <Col sm={12} lg={6}>
+                        <InfoText
+                          text={data?.data.bio ?? '-'}
+                          isLoading={isPending}
+                          title="Bio"
+                          length={20}
+                        />
+                      </Col>
 
-                    <InfoText
-                      text={data?.data.public_repos?.toString()}
-                      isLoading={isPending}
-                      title="Total de repositórios"
-                      length={3}
-                    />
+                      <Col sm={12} lg={3}>
+                        <InfoText
+                          text={data?.data.followers?.toString()}
+                          isLoading={isPending}
+                          title="Seguidores"
+                          length={3}
+                        />
+                      </Col>
+
+                      <Col sm={12} lg={3}>
+                        <InfoText
+                          text={data?.data.following?.toString()}
+                          isLoading={isPending}
+                          title="Seguindo"
+                          length={3}
+                        />
+                      </Col>
+                    </Row>
                   </Col>
                 </Row>
               </Col>
