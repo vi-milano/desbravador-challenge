@@ -10,9 +10,9 @@ import {
   Row,
   Image,
 } from 'react-bootstrap';
-import { useLocation, useNavigate, useOutlet } from 'react-router';
+import { useLocation, useMatch, useNavigate, useOutlet } from 'react-router';
 import { InfoText } from '~/components/InfoText';
-import { useGetUsers } from '~/hooks/useGetUsers';
+import { useGetUser } from '~/hooks/useGetUser';
 
 const collapseVariants = {
   initial: { opacity: 0, height: 0 },
@@ -30,8 +30,10 @@ const collapseVariants = {
 
 export default function Search() {
   const [searchValue, setSearchValue] = useState<string>('');
-  const { data, mutate, isSuccess, isPending } = useGetUsers();
-  const queryClient = useQueryClient();
+  const match = useMatch('/user/:username/*');
+  const username = match?.params.username;
+  const { data, isSuccess, isLoading } = useGetUser(username ?? '');
+
   const navigate = useNavigate();
   const location = useLocation();
   const currentOutlet = useOutlet();
@@ -39,16 +41,7 @@ export default function Search() {
   const handleSubmit = useCallback(
     (e: React.SubmitEvent<HTMLFormElement>) => {
       e.preventDefault();
-
-      mutate(searchValue, {
-        onSuccess: (userData, username) => {
-          queryClient.setQueryData(['gitHubUser', username], userData);
-          navigate(`user/${username}`);
-        },
-        onError: () => {
-          navigate('');
-        },
-      });
+      navigate(`user/${searchValue}`);
     },
     [searchValue]
   );
@@ -107,44 +100,39 @@ export default function Search() {
                       <Col sm={12} lg={6}>
                         <InfoText
                           text={data?.data.name ?? '-'}
-                          isLoading={isPending}
+                          isLoading={isLoading}
                           title="Nome"
-                          length={20}
                         />
                       </Col>
                       <Col sm={12} lg={6}>
                         <InfoText
                           text={data?.data.email ?? '-'}
-                          isLoading={isPending}
+                          isLoading={isLoading}
                           title="E-mail"
-                          length={20}
                         />
                       </Col>
 
                       <Col sm={12}>
                         <InfoText
                           text={data?.data.bio ?? '-'}
-                          isLoading={isPending}
+                          isLoading={isLoading}
                           title="Bio"
-                          length={20}
                         />
                       </Col>
 
                       <Col sm={12} lg={6}>
                         <InfoText
                           text={data?.data.followers?.toString()}
-                          isLoading={isPending}
+                          isLoading={isLoading}
                           title="Seguidores"
-                          length={3}
                         />
                       </Col>
 
                       <Col sm={12} lg={6}>
                         <InfoText
                           text={data?.data.following?.toString()}
-                          isLoading={isPending}
+                          isLoading={isLoading}
                           title="Seguindo"
-                          length={3}
                         />
                       </Col>
                     </Row>
