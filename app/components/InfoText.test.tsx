@@ -11,8 +11,9 @@ describe('InfoText', () => {
   });
 
   it('exibe o título mesmo durante o estado de carregamento', () => {
-    render(<InfoText title="Status" isLoading={true} />);
+    render(<InfoText title="Status" text="Ativo" isLoading={true} />);
 
     expect(screen.getByText('Status:')).toBeInTheDocument();
+    expect(screen.queryByText('Ativo')).not.toBeInTheDocument();
   });
 });
