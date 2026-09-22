@@ -1,10 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
-import '@testing-library/jest-dom';
 import { TextSkeleton } from './TextSkeleton';
 
 describe('TextSkeleton', () => {
-  it('exibe o indicador de carregamento quando isLoading é true', () => {
+  it('exibe loading quando isLoading é true', () => {
     render(<TextSkeleton isLoading={true} text="Conteúdo" />);
 
     expect(
@@ -20,7 +19,7 @@ describe('TextSkeleton', () => {
     expect(screen.queryByRole('status')).not.toBeInTheDocument();
   });
 
-  it('exibe os filhos (children) quando isLoading é false e text não é informado', () => {
+  it('exibe filhos quando isLoading é false', () => {
     render(
       <TextSkeleton isLoading={false}>
         <span>Texto Filho</span>

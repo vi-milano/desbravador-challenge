@@ -1,7 +1,6 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { describe, it, expect, vi } from 'vitest';
-import '@testing-library/jest-dom';
 
 import { useGetRepo } from './useGetRepo';
 import { getGitHubRepo } from '~/services/getGitHubRepo';
