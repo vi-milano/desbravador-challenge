@@ -59,7 +59,7 @@ export default function RepoList() {
           md={8}
           className="d-flex justify-content-between align-items-center mb-2 p-0"
         >
-          <p className="mb-0">Repositórios</p>
+          <p className="mb-0">Repositórios mais populares</p>
 
           <Dropdown onSelect={(key) => key && setSortKey(key as SortKey)}>
             <Dropdown.Toggle variant="outline-secondary" size="sm">
