@@ -21,16 +21,25 @@ describe('RepoList', () => {
     {
       id: 1,
       name: 'B-repo',
-      stargazers_count: 5,
+      stargazers_count: 10,
       updated_at: '2023-01-01T00:00:00Z',
     },
     {
       id: 2,
       name: 'A-repo',
-      stargazers_count: 10,
+      stargazers_count: 5,
       updated_at: '2023-05-01T00:00:00Z',
     },
+    {
+      id: 3,
+      name: 'C-repo',
+      stargazers_count: 2,
+      updated_at: '2023-09-01T00:00:00Z',
+    },
   ];
+
+  const getRenderedRepoNames = () =>
+    screen.getAllByText(/-repo/).map((el) => el.textContent);
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -44,33 +53,27 @@ describe('RepoList', () => {
   it('exibe a lista de repositórios ordenada por número de estrelas por padrão', () => {
     render(<RepoList />);
 
-    const listItems = screen.getAllByRole('button');
-    expect(listItems[1]).toHaveTextContent('A-repo');
-    expect(listItems[2]).toHaveTextContent('B-repo');
+    expect(getRenderedRepoNames()).toEqual(['B-repo', 'A-repo', 'C-repo']);
   });
 
   it('ordena a lista por nome ao selecionar a opção correspondente', async () => {
     const user = userEvent.setup();
     render(<RepoList />);
 
-    await user.click(screen.getByRole('button', { name: /mais estrelas/i }));
+    await user.click(screen.getByRole('button', { name: 'Mais estrelas' }));
     await user.click(screen.getByText('Nome (A–Z)'));
 
-    const listItems = screen.getAllByRole('button');
-    expect(listItems[1]).toHaveTextContent('A-repo');
-    expect(listItems[2]).toHaveTextContent('B-repo');
+    expect(getRenderedRepoNames()).toEqual(['A-repo', 'B-repo', 'C-repo']);
   });
 
   it('ordena a lista por data de atualização ao selecionar a opção correspondente', async () => {
     const user = userEvent.setup();
     render(<RepoList />);
 
-    await user.click(screen.getByRole('button', { name: /mais estrelas/i }));
+    await user.click(screen.getByRole('button', { name: 'Mais estrelas' }));
     await user.click(screen.getByText('Atualizados recentemente'));
 
-    const listItems = screen.getAllByRole('button');
-    expect(listItems[1]).toHaveTextContent('A-repo');
-    expect(listItems[2]).toHaveTextContent('B-repo');
+    expect(getRenderedRepoNames()).toEqual(['C-repo', 'A-repo', 'B-repo']);
   });
 
   it('navega para a página de detalhes ao clicar em um repositório', async () => {
