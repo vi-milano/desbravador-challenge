@@ -23,6 +23,7 @@ export default function RepoDetail() {
             <Col className="d-flex justify-content-end" xs={6}>
               <Button
                 variant="secondary"
+                disabled={isLoading || !data?.data.html_url}
                 onClick={() => window.open(data?.data.html_url, '_blank')}
               >
                 Acessar no GitHub

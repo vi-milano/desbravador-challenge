@@ -8,5 +8,6 @@ export function useGetUser(username: string) {
     queryFn: () => getUser(username),
     enabled: !!username,
     staleTime: STALE_TIME,
+    retry: false,
   });
 }

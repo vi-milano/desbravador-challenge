@@ -32,7 +32,7 @@ export default function Search() {
   const [searchValue, setSearchValue] = useState<string>('');
   const match = useMatch('/user/:username/*');
   const username = match?.params.username;
-  const { data, isSuccess, isLoading } = useGetUser(username ?? '');
+  const { data, isSuccess, isLoading, isError } = useGetUser(username ?? '');
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -41,7 +41,11 @@ export default function Search() {
   const handleSubmit = useCallback(
     (e: React.SubmitEvent<HTMLFormElement>) => {
       e.preventDefault();
-      navigate(`user/${searchValue}`);
+      if (!searchValue) {
+        navigate('/');
+      } else {
+        navigate(`user/${searchValue}`);
+      }
     },
     [searchValue]
   );
@@ -74,7 +78,24 @@ export default function Search() {
         </Col>
       </Row>
       <AnimatePresence mode="wait">
-        {isSuccess && (
+        {isError && (
+          <motion.div
+            key="user-not-found"
+            variants={collapseVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+          >
+            <Row className="justify-content-center mb-3">
+              <Col xs={12} md={8}>
+                <p className="text-center text-danger">
+                  Usuário não encontrado.
+                </p>
+              </Col>
+            </Row>
+          </motion.div>
+        )}
+        {!isLoading && isSuccess && (
           <motion.div
             key="user-card"
             variants={collapseVariants}
@@ -143,21 +164,23 @@ export default function Search() {
           </motion.div>
         )}
       </AnimatePresence>
-      <Row>
-        <Col>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={location.pathname}
-              variants={collapseVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-            >
-              {currentOutlet}
-            </motion.div>
-          </AnimatePresence>
-        </Col>
-      </Row>
+      {!isError && (
+        <Row>
+          <Col>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={location.pathname}
+                variants={collapseVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+              >
+                {currentOutlet}
+              </motion.div>
+            </AnimatePresence>
+          </Col>
+        </Row>
+      )}
     </Container>
   );
 }
