@@ -1,27 +1,13 @@
 import { renderHook, waitFor } from '@testing-library/react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { describe, it, expect, vi } from 'vitest';
 
 import { useGetRepo } from './useGetRepo';
 import { getGitHubRepo } from '~/services/getGitHubRepo';
+import { createWrapper } from '~/test/helpers';
 
 vi.mock('~/services/getGitHubRepo', () => ({
   getGitHubRepo: vi.fn(),
 }));
-
-function createWrapper() {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        retry: false,
-      },
-    },
-  });
-
-  return ({ children }: { children: React.ReactNode }) => (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-  );
-}
 
 describe('useGetRepo', () => {
   it('retorna os dados do repositório com sucesso', async () => {

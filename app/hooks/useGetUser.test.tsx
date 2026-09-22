@@ -1,23 +1,13 @@
 import { renderHook, waitFor } from '@testing-library/react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { describe, it, expect, vi } from 'vitest';
 
 import { useGetUser } from './useGetUser';
 import { getUser } from '~/services/getGitHubUser';
+import { createWrapper } from '~/test/helpers';
 
 vi.mock('~/services/getGitHubUser', () => ({
   getUser: vi.fn(),
 }));
-
-function createWrapper() {
-  const queryClient = new QueryClient({
-    defaultOptions: { queries: { retry: false } },
-  });
-
-  return ({ children }: { children: React.ReactNode }) => (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-  );
-}
 
 describe('useGetUser', () => {
   it('não dispara a requisição se username estiver vazio', () => {
