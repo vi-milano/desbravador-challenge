@@ -34,7 +34,7 @@ describe('Search', () => {
     } as any);
   });
 
-  it('redireciona para "/" ao submeter formulário sem valor de busca', async () => {
+  it('redireciona para "/"  no caso do input vazio', async () => {
     const user = userEvent.setup();
     render(<Search />);
 
@@ -43,7 +43,7 @@ describe('Search', () => {
     expect(mockNavigate).toHaveBeenCalledWith('/');
   });
 
-  it('redireciona para "user/nome-usuario" ao submeter formulário com valor de busca', async () => {
+  it('redireciona para "user/nome-usuario" ao digitar nome de usuário e clicar em buscar', async () => {
     const user = userEvent.setup();
     render(<Search />);
 
@@ -69,7 +69,7 @@ describe('Search', () => {
     expect(screen.getByText('Usuário não encontrado.')).toBeInTheDocument();
   });
 
-  it('exibe os dados do usuário quando a busca é bem-sucedida', () => {
+  it('exibe os dados do usuário quando o usuario é encontrado', () => {
     vi.mocked(useGetUser).mockReturnValue({
       data: {
         data: {
