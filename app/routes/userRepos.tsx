@@ -1,4 +1,3 @@
-import Search from '~/layouts/search';
 import type { Route } from './+types/home';
 import RepoList from '~/pages/RepoList';
 

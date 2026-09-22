@@ -1,4 +1,4 @@
-import type { GitHubUserResponse } from './getGitHubUsers.types';
+import type { GitHubUserResponse } from './getGitHubUser.types';
 import { gitHubApi } from './api/gitHubApi';
 
 export const getUser = async (username: string) => {
