@@ -7,7 +7,8 @@
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc",
-    "lint": "eslint --fix ."
+    "lint": "eslint --fix .",
+    "test": "vitest run --coverage"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
@@ -28,17 +29,26 @@
     "@octokit/types": "^18.0.0",
     "@react-router/dev": "^8.4.0",
     "@tailwindcss/vite": "^4.2.2",
+    "@testing-library/dom": "^10.4.2",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@types/jest": "^30.0.0",
     "@types/node": "^22",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "@vitest/coverage-v8": "^5.0.1",
     "eslint": "^10.11.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.7",
     "globals": "^17.12.0",
+    "jsdom": "^30.1.1",
     "prettier": "^3.9.8",
     "tailwindcss": "^4.2.2",
     "typescript": "^5.9.3",
-    "vite": "^8.0.3"
+    "vite": "^8.0.3",
+    "vite-tsconfig-paths": "^6.1.1",
+    "vitest": "^5.0.1"
   }
 }
